@@ -1,6 +1,5 @@
 ﻿angular.module("umbraco").controller("Moriyama.RecentTweets", function ($scope, $http, mediaResource, editorState, notificationsService) {
     var vm = this;
-     // stolen from view: '/umbraco/views/propertyeditors/imagecropper/imagecropper.html',
     $scope.model.hideLabel = $scope.model.config.hideLabel == 1;
 
     function init() {
@@ -17,17 +16,12 @@
 
 
 
-        };
-       
-
+        };   
 
     vm.status = {
         loadingTweets: true,
         tweets: []
     }
-  
-
-
   
     init();
 
