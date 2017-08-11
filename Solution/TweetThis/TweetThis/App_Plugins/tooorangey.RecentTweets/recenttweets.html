@@ -1,0 +1,44 @@
+﻿<div class="umb-editor" ng-class="" ng-controller="Moriyama.RecentTweets as vm">
+   <ul class="tweets">
+       <li ng-repeat="tweet in vm.status.tweets" class="twitter-card">
+
+           <a target="_blank" ng-href="https://twitter.com/{{tweet.User.ScreenName}}" ng-if="!tweet.IsRetweet" class="twitter-link">
+               <div class="twitter-profile-pic">
+                   <img src="{{tweet.User.ProfileImageUrlHttps}}" ng-if="!tweet.IsRetweet" />
+               </div>
+               <div class="twitter-logo">
+                   <svg viewBox="0 0 50 50" width="50" height="50" xmlns="http://www.w3.org/2000/svg">
+                       <path class="cls-2" fill="#1da1f2" d="M 20.904 34.864 C 31.527 34.864 37.338 26.062 37.338 18.429 C 37.338 18.179 37.338 17.93 37.321 17.683 C 38.452 16.865 39.428 15.852 40.203 14.693 C 39.149 15.16 38.031 15.466 36.886 15.601 C 38.091 14.88 38.994 13.744 39.425 12.407 C 38.291 13.079 37.051 13.554 35.757 13.809 C 32.708 10.566 27.293 11.841 26.01 16.103 C 25.718 17.068 25.686 18.094 25.914 19.077 C 21.269 18.844 16.942 16.65 14.009 13.042 C 12.476 15.681 13.259 19.057 15.798 20.752 C 14.878 20.725 13.979 20.477 13.176 20.029 C 13.176 20.053 13.176 20.078 13.176 20.103 C 13.177 22.852 15.115 25.22 17.81 25.765 C 16.96 25.997 16.067 26.031 15.202 25.864 C 15.959 28.217 18.127 29.829 20.598 29.875 C 18.553 31.483 16.026 32.355 13.425 32.353 C 12.966 32.352 12.506 32.324 12.05 32.269 C 14.692 33.965 17.765 34.864 20.904 34.859" transform="matrix(1, 0, 0, 1, 0, 0)" />
+                   </svg>
+               </div>
+           
+               <div class="twitter-name">{{tweet.User.Name}}<strong> @{{tweet.User.ScreenName}}</strong></div>
+               <div class="twitter-content">{{tweet.Text}}</div>
+               <div class="twitter-details" ng-if="tweet.HasRetweeted || tweet.HasFavorited" >
+                   <span ng-if="tweet.HasRetweeted" class="twitter-retweets">Retweets - {{tweet.RetweetCount}}</span>
+                   <span ng-if="tweet.HasFavorited" class="twitter-FavoriteCount">Favorites - {{tweet.RetweetCount}}</span>
+               </div>
+
+           </a>
+
+           <div ng-if="tweet.IsRetweet">
+               <div class="twitter-profile-pic">
+                    <img src="{{tweet.RetweetedStatus.User.ProfileImageUrlHttps}}" />
+               </div>
+               <div class="twitter-retweets" title="This is a retweet">
+                   <i class="icon-repeat"></i>
+               </div>
+               <div class="twitter-logo">
+                   <svg viewBox="0 0 50 50" width="50" height="50" xmlns="http://www.w3.org/2000/svg">
+                       <path class="cls-2" fill="#1da1f2" d="M 20.904 34.864 C 31.527 34.864 37.338 26.062 37.338 18.429 C 37.338 18.179 37.338 17.93 37.321 17.683 C 38.452 16.865 39.428 15.852 40.203 14.693 C 39.149 15.16 38.031 15.466 36.886 15.601 C 38.091 14.88 38.994 13.744 39.425 12.407 C 38.291 13.079 37.051 13.554 35.757 13.809 C 32.708 10.566 27.293 11.841 26.01 16.103 C 25.718 17.068 25.686 18.094 25.914 19.077 C 21.269 18.844 16.942 16.65 14.009 13.042 C 12.476 15.681 13.259 19.057 15.798 20.752 C 14.878 20.725 13.979 20.477 13.176 20.029 C 13.176 20.053 13.176 20.078 13.176 20.103 C 13.177 22.852 15.115 25.22 17.81 25.765 C 16.96 25.997 16.067 26.031 15.202 25.864 C 15.959 28.217 18.127 29.829 20.598 29.875 C 18.553 31.483 16.026 32.355 13.425 32.353 C 12.966 32.352 12.506 32.324 12.05 32.269 C 14.692 33.965 17.765 34.864 20.904 34.859" transform="matrix(1, 0, 0, 1, 0, 0)" />
+                   </svg>
+               </div>
+
+               <div class="twitter-name">{{tweet.RetweetedStatus.User.Name}} <strong>@{{tweet.RetweetedStatus.User.ScreenName}}</strong></div>
+               <div class="twitter-content">{{tweet.Text}}</div>
+               
+           </div>
+           
+       </li>
+   </ul>
+</div>

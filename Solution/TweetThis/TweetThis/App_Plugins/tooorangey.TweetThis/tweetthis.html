@@ -1,0 +1,37 @@
+﻿<div class="umb-editor umb-mediapicker tweet-this" ng-controller="tooorangey.TweetThisController as vm">
+    <div class="umb-dialog-body" ng-show="!vm.status.twitterAccount.accountRegistered">
+        <div class="umb-pane">
+            <p class="text-warning">You need to authenticate a twitter account (usually on the homepage) of the site in order to be able Tweet this article out.</p>
+        </div>
+        </div>
+        <div class="umb-dialog-body" ng-show="vm.status.twitterAccount.accountRegistered">
+            <div class="umb-pane">
+                <umb-load-indicator ng-if="vm.status.isTweeting">
+                </umb-load-indicator>
+                <div class="umb-el-wrap">
+                    <label class="control-label">Tweeting as: </label>
+                    <div class="controls">
+                        <div class="twitter-card-holder">
+                            <div class="twitter-profile-pic">
+                                <img src="{{vm.status.twitterAccount.avatar}}" /><br />
+                            </div>
+                            <div class="twitter-name"> @{{vm.status.twitterAccount.screenName}} ({{vm.status.twitterAccount.name}})</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="umb-el-wrap" ng-show="vm.status.showTweetForm && !vm.status.isTweeting">
+                    <label class="control-label">Your Tweet:</label>
+                    <div class="controls">
+                        <div class="umb-property-editor">
+                            <textarea class="umb-editor umb-textarea textstring" rows="8" ng-model="vm.status.tweetMessage" type="textbox" ng-change="vm.limitChars()" />
+                            <span ng-show="vm.status.messageStatus.length > 0" class="pull-right" ng-class="{'text-warning': vm.status.tooManyCharacters,'text-info': !vm.status.tooManyCharacters}" ng-bind="vm.status.messageStatus"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="umb-dialog-footer btn-toolbar umb-btn-toolbar" ng-hide="success">
+            <a class="btn btn-link" ng-click="nav.hideDialog()">Cancel</a>
+            <button ng-show="vm.status.twitterAccount.accountRegistered && vm.status.readyToTweet && vm.status.tweetMessage.length > 0" class="btn btn-primary" ng-click="vm.tweetThis()">Tweet This</button>
+        </div>
+    </div>

@@ -1,0 +1,15 @@
+﻿.twitter-card-holder { margin:1em}
+
+.twitter-profile-pic {
+    display: inline-block;
+}
+
+.twitter-profile-pic img {
+    border-radius: 50%;
+}
+
+.twitter-name {
+    display: inline-block;
+    font-size: 120%;
+    margin-left: 7px;
+}

@@ -1,0 +1,8 @@
+﻿﻿{	
+	javascript:[
+		"/app_plugins/tooorangey.TweetThis/tweetthis.controller.js"	
+	],
+	css:[
+		"/app_plugins/tooorangey.TweetThis/tweetthis.css"
+	]
+}

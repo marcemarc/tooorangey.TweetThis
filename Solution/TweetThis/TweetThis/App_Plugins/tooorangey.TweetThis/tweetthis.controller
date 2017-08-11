@@ -1,0 +1,117 @@
+﻿angular.module("umbraco").controller("tooorangey.TweetThisController", function ($scope, $http, entityResource, mediaHelper, navigationService, notificationsService, $location) {
+    
+    var vm = this;
+
+    vm.content = {
+        url:'',
+        title:'',
+        id: 0
+    };
+
+    vm.status = {
+		 twitterAccountRegistered: false,
+		 showTweetForm: false,
+         readyToTweet: false,
+		 isTweeting: false,
+		 showStatusPanel: false,
+		 tweetMessage: '',
+		 charLimit: 120,
+		 messageStatus: ''
+    };
+
+	function init(){
+		//check if twitter account setup ok
+		//show error and explain how to do so
+		vm.status.twitterAccountRegistered = true;
+		// get current content item
+    var dialogOptions = $scope.dialogOptions;
+    var currentContentItem = dialogOptions.currentNode;
+    vm.content.id = parseInt(currentContentItem.id);
+    console.log(currentContentItem);
+
+    // use entity resource to pull back it's url
+    entityResource.getById(currentContentItem.id, "content").then(function (contentEntity) {
+        console.log(contentEntity);
+		//should we get blog title here?
+        vm.content.title = contentEntity.name;
+		entityResource.getUrl(currentContentItem.id,"content").then(function(response)){
+		console.log(response);
+		vm.content.url = response.data;
+		if (vm.content.Url != ''){
+		// if ok show the twitter form
+		vm.status.showTweetForm = true;
+		}
+		
+		});
+
+    });
+
+		
+	};
+
+	vm.limitChars = limitChars
+    vm.tweetThis = tweetThis;
+  
+  function limitChars(){
+
+            if (vm.status.tweetMessage.length > vm.status.charLimit ) {
+                vm.status.messageStatus = "You cannot write more than " + vm.status.charLimit  + " characters!";
+                vm.status.tweetMessage = vm.status.tweetMessage.substr(0, vm.status.charLimit);
+            } else {   
+                vm.status.messageStatus = "You have " + (vm.status.charLimit - vm.status.tweetMessage.length) + 
+                     " characters left.";  
+            }
+
+  
+  
+  };
+
+
+  function tweetThis(){
+	vm.status.isTweeting= true;
+	// do the tweeting
+	vm.status.isTweeting = false;
+	vm.status.readyToTweet = false;
+	vm.status.showStatusPanel = true;
+  // show details of whether tweet was successful, perhaps with a link to it?
+	// or do we just shut panel and show notification
+	
+	navigationService.hideDialog();
+    notificationsService.remove(0);
+    notificationsService.success("Tweet Sent", "Your tweet about " + vm.content.title  + " was tweeted!");
+  }
+
+  
+    function rotate() {
+        vm.status.isSelectionMode = false;
+        //hide the slidey out thing, show some animation
+        $http.post("/umbraco/backoffice/api/pirouette/rotatemedia", JSON.stringify({ MediaId: parseInt(vm.mediaInfo.mediaId), Turns: vm.status.selected, CreateNewMediaItem: vm.status.createNewMediaItem }),
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(function (response) {               
+                   // console.log(response);
+                    // close the slide out box
+                    navigationService.hideDialog();
+         
+                    // reload the media node
+                    if (currentMediaItem.id != response.data) {
+                        $location.path('media/media/edit/' + response.data);
+                    }
+                    else {
+                        window.location.reload(true);
+                    }
+              
+                }, function (response) {
+                    //console.log(response);
+                    //notify errors
+                    navigationService.hideDialog();
+                    notificationsService.remove(0);
+                    notificationsService.error("Error Rotating Image", response.data.Message);
+
+                });
+        
+    }
+
+});

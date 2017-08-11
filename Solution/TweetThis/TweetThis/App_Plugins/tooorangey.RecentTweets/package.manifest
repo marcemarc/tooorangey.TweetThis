@@ -1,0 +1,15 @@
+﻿{
+    propertyEditors: [
+     {
+        alias: "tooorangey.RecentTweets",
+        name: "RecentTweets",
+        editor: {	                                        
+        view: "~/App_Plugins/tooorangey.RecentTweets/recenttweets.html",
+        hideLabel:true,
+		}
+    }],
+   javascript: [
+   '~/App_Plugins/tooorangey.RecentTweets/recenttweets.controller.js',
+   ],
+    css: ['~/App_Plugins/tooorangey.RecentTweets/recenttweets.css']
+}
